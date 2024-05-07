@@ -4,12 +4,8 @@ import './App.css'
 function App() {
 
   return (
-    <div>
-      root: C:\Users\Administrator\AppData\Roaming\nvm path: C:\Program
-      Files\nodejs node_mirror: https://npm.taobao.org/mirrors/node/ npm_mirror:
-      https://npm.taobao.org/mirrors/npm/
-    </div>
-  );
+    <div>1234</div>
+  )
 }
 
 export default App
