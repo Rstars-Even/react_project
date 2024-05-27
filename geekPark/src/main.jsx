@@ -4,11 +4,11 @@ import "./index.scss";
 // 导入 router
 import { RouterProvider } from "react-router-dom";
 import router from "./router";
-// import { Provider } from "react-redux";
-// import store from "./store";
+import { Provider } from "react-redux";
+import store from "./store";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  // <Provider store={store}>
+  <Provider store={store}>
     <RouterProvider router={router}></RouterProvider>
-  // </Provider>
+  </Provider>
 );
