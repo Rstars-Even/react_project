@@ -37,7 +37,8 @@ const Login = () => {
             name="code"
             rules={[{ required: true, message: "请输入验证码" }]}
           >
-            <Input size="large" placeholder="请输入验证码" />
+            {/* 246810 */}
+            <Input size="large" placeholder="246810" />
           </Form.Item>
           <Form.Item>
             <Button type="primary" htmlType="submit" size="large" block>

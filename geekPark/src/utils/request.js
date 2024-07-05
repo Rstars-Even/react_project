@@ -1,5 +1,8 @@
 // axios 的封装。
 import axios from "axios";
+import { getToken, removeToken } from "@/utils";
+import router from "../router";
+
 // 1.根域名的配置。
 // 2.请求超时处理。
 // 3.请求拦截/响应拦截。
@@ -11,7 +14,12 @@ const request = axios.create({
 
 // 添加请求拦截器
 request.interceptors.request.use(
+  // 操作这个 config 注入 token 数据
   (config) => {
+    const token = getToken();
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
     return config;
   },
   (error) => {
@@ -29,6 +37,12 @@ request.interceptors.response.use(
   (error) => {
     // 超出 2xx 范围的状态码都会触发该函数。
     // 对响应错误做点什么
+    if (error.response.status === 401) {
+      removeToken();
+      router.navigate("/login");
+      // window.location.reload();
+    }
+
     return Promise.reject(error);
   }
 );

@@ -1,22 +1,33 @@
 // 用户相关的状态管理。
 import { createSlice } from "@reduxjs/toolkit";
-import { request } from "@/utils";
+import { request, setToken as _setToken, getToken, removeToken } from "@/utils";
+
 const userStore = createSlice({
   name: "user",
   // 数据状态
   initialState: {
-    token: "",
+    token: getToken() || "",
+    userInfo: {},
   },
   // 同步修改方法
   reducers: {
+    setToken(state, action) {
+      state.userInfo = action.payload;
+      _setToken(action.payload);
+    },
     setUserInfo(state, action) {
       state.userInfo = action.payload;
+    },
+    clearUserInfo(state) {
+      state.token = "";
+      state.userInfo = {};
+      removeToken();
     },
   },
 });
 
 // 解构出actionCreater
-const { setUserInfo } = userStore.actions;
+const { setToken, setUserInfo, clearUserInfo } = userStore.actions;
 
 // 获取reducer函数
 const userReducer = userStore.reducer;
@@ -25,10 +36,16 @@ const userReducer = userStore.reducer;
 const fetchLogin = (loginForm) => {
   return async (dispatch) => {
     const res = await request.post("/authorizations", loginForm);
-    dispatch(setUserInfo(res.data.token));
+    dispatch(setToken(res.data.token));
+  };
+};
+const fetchUserInfo = () => {
+  return async (dispatch) => {
+    const res = await request.get("/user/profile");
+    dispatch(setUserInfo(res.data));
   };
 };
 
-export { fetchLogin };
+export { fetchLogin, fetchUserInfo, clearUserInfo };
 
 export default userReducer;
