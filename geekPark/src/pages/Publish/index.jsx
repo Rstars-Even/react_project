@@ -8,6 +8,7 @@ import {
   Upload,
   Space,
   Select,
+  message,
 } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
@@ -25,27 +26,46 @@ const Publish = () => {
   const [channelList, setChannelList] = useState([]);
   useEffect(() => {
     const getChannelList = async () => {
-      const res = await getChannelAPI()
-      setChannelList(res.data.channels)
-    }
-    getChannelList()
-  }, [])
+      const res = await getChannelAPI();
+      setChannelList(res.data.channels);
+    };
+    getChannelList();
+  }, []);
 
   // 按钮提交表单
-  const onFinish = (formValue) => {
+  const onFinish = async (formValue) => {
+    if (imageType !== imageList.length)
+      return message.warning("图片类型和数量不一致");
     const { channel_id, content, title } = formValue;
     const params = {
       channel_id,
       content,
       title,
-      type: 1,
+      type: imageType,
       cover: {
-        type: 1,
-        images: [],
+        type: imageType,
+        images: imageList.map((item) => item.response.data.url),
       },
     };
-    createArticleAPI(params)
-  }
+    let msg = await createArticleAPI(params);
+    // console.log('-------msg---', msg);
+    if (msg.message === 'OK') {
+      message.success("发布文章成功");
+    }
+  };
+
+  // 上传图片
+  const [imageList, setImageList] = useState([]);
+  const onUploadChange = (info) => {
+    setImageList(info.fileList);
+  };
+
+  // 控制图片Type
+  const [imageType, setImageType] = useState(0);
+  const onTypeChange = (e) => {
+    console.log(e);
+    setImageType(e.target.value);
+  };
 
   return (
     <div className="publish">
@@ -62,7 +82,7 @@ const Publish = () => {
         <Form
           labelCol={{ span: 4 }}
           wrapperCol={{ span: 16 }}
-          initialValues={{ type: 1 }}
+          initialValues={{ type: 0 }}
           onFinish={onFinish}
         >
           <Form.Item
@@ -84,6 +104,29 @@ const Publish = () => {
                 </Option>
               ))}
             </Select>
+          </Form.Item>
+          <Form.Item label="封面">
+            <Form.Item name="type">
+              <Radio.Group onChange={onTypeChange}>
+                <Radio value={1}>单图</Radio>
+                <Radio value={3}>三图</Radio>
+                <Radio value={0}>无图</Radio>
+              </Radio.Group>
+            </Form.Item>
+            {imageType > 0 && (
+              <Upload
+                name="image"
+                listType="picture-card"
+                showUploadList
+                action={"http://geek.itheima.net/v1_0/upload"}
+                onChange={onUploadChange}
+                maxCount={imageType}
+              >
+                <div style={{ marginTop: 8 }}>
+                  <PlusOutlined />
+                </div>
+              </Upload>
+            )}
           </Form.Item>
           <Form.Item
             label="内容"
