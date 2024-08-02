@@ -17,7 +17,11 @@ import "./index.scss";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { useState, useEffect } from "react";
-import { createArticleAPI, getArticleById } from "@/apis/article";
+import {
+  createArticleAPI,
+  getArticleById,
+  updateArticleAPI,
+} from "@/apis/article";
 import { useChannel } from "../../hooks/useChannel";
 
 const { Option } = Select;
@@ -25,6 +29,8 @@ const { Option } = Select;
 const Publish = () => {
   // 获取频道列表
   const { channelList } = useChannel()
+  const [searchParams] = useSearchParams();
+  const articleId = searchParams.get("id");
 
   // 按钮提交表单
   const onFinish = async (formValue) => {
@@ -38,13 +44,24 @@ const Publish = () => {
       type: imageType,
       cover: {
         type: imageType,
-        images: imageList.map((item) => item.response.data.url),
+        images: imageList.map(item => {
+          if (item.response) {
+            return item.response.data.url;
+          } else {
+            return item.url
+          }
+        }),
       },
     };
-    let msg = await createArticleAPI(params);
-    // console.log('-------msg---', msg);
-    if (msg.message === 'OK') {
-      message.success("发布文章成功");
+    let msg
+    if (articleId) {
+      msg = updateArticleAPI({...params, id: articleId});
+      message.success("更新文章成功");
+    } else {
+      msg = await createArticleAPI(params);
+      if (msg.message === 'OK') {
+        message.success("发布文章成功");
+      }
     }
   };
 
@@ -61,15 +78,20 @@ const Publish = () => {
     setImageType(e.target.value);
   };
   // 编辑页面内容回显
-  const [searchParams] = useSearchParams();
-  const articleId = searchParams.get("id");
   const [form] = Form.useForm();
   useEffect(() => {
     async function getArticle() {
       const res = await getArticleById(articleId);
       // const { cover, ...formValue } = res.data;
       // 设置表单数据
-      form.setFieldsValue(res.data);
+      const data = res.data
+      const { cover } = data
+      form.setFieldsValue({
+        ...data,
+        type: cover.type,
+      });
+      setImageType(cover.type); // 封面类型
+      setImageList(cover.images.map(url => {return { url }})); // 封面list
     }
     if (articleId) {
       // 拉取数据回显
@@ -84,7 +106,7 @@ const Publish = () => {
           <Breadcrumb
             items={[
               { title: <Link to={"/"}>首页</Link> },
-              { title: "发布文章" },
+              { title: `${articleId ? "编辑" : "发布"}文章` },
             ]}
           />
         }
@@ -132,6 +154,7 @@ const Publish = () => {
                 action={"http://geek.itheima.net/v1_0/upload"}
                 onChange={onUploadChange}
                 maxCount={imageType}
+                fileList={imageList}
               >
                 <div style={{ marginTop: 8 }}>
                   <PlusOutlined />
