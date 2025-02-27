@@ -8,6 +8,9 @@ export const authConfig = {
         authorized({ auth, request: { nextUrl } }) {
             const isLoggedIn = !!auth?.user;
             const isOnDashboard = nextUrl.pathname.startsWith('/dashboard');
+
+            console.log('-----------nextUrl---------', new URL('/dashboard'), nextUrl)
+
             if (isOnDashboard) {
                 if (isLoggedIn) return true;
                 return false; // Redirect unauthenticated users to login page
@@ -18,4 +21,5 @@ export const authConfig = {
         },
     },
     providers: [], // Add providers with an empty array for now
+    // secret: process.env.NEXTAUTH_SECRET,
 } satisfies NextAuthConfig;
