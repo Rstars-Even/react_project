@@ -3,7 +3,7 @@
     "explorer.fileNesting.enabled": true,
     "explorer.fileNesting.expand": false,
     "explorer.fileNesting.patterns": {
-        "tsconfig.json": "tsconfig..,composer.json,phpunit,vite.config.js,index.html,.yml,.config.js,.gen.ts,.d.ts,package.json,tsconfig.node,json,.gitignore,electron.vite.config.js,update.md,vite.config.ts,tsconfig.app.json,tsconfig.node.json,README.md,eslintrc.cjs,eslint.config.js,prettierrc.js,.prettierrc",
+        "tsconfig.json": "tsconfig..,composer.json,phpunit,vite.config.js,index.html,.yml,.config.js,.gen.ts,.d.ts,package.json,tsconfig.node,json,.gitignore,electron.vite.config.js,update.md,vite.config.ts,tsconfig.app.json,tsconfig.node.json,README.md,eslintrc.cjs,eslint.config.js,prettierrc.js,.prettierrc,tailwind.config.js,postcss.config.js",
         "pnpm-lock.yaml": "stylelintrc.js,.tslintignore,.eslintignore,prettierignore,.prettierrc.yaml,.npmrc,editorconfig,yarn.*",
     },
     "files.exclude": {
