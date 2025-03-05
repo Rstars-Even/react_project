@@ -5,9 +5,9 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Lesson>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Chapter>
  */
-class LessonFactory extends Factory
+class ChapterFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -20,7 +20,7 @@ class LessonFactory extends Factory
             "title" => fake()->sentence(),
             "preview" => fake()->imageUrl(),
             "description" => fake()->sentence(),
-            "price" => fake()->numberBetween(100, 999)
+            "lesson_id" => 1,
         ];
     }
 }

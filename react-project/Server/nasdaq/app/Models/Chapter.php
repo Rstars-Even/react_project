@@ -5,16 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Lesson extends Model
+class Chapter extends Model
 {
-    /** @use HasFactory<\Database\Factories\LessonFactory> */
+    /** @use HasFactory<\Database\Factories\ChapterFactory> */
     use HasFactory;
-
-    public function chapters() {
-        return $this->hasMany(Chapter::class);
-    }
 
     public function videos() {
         return $this->hasMany(Video::class);
+    }
+
+    public function lesson() {
+        return $this-belongsTo(Lesson::class);
     }
 }
