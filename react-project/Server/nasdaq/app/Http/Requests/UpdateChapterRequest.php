@@ -11,7 +11,7 @@ class UpdateChapterRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,10 @@ class UpdateChapterRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'title' => ['required'],
+            'lesson_id' => ['required'],
+            'preview' => ['required'],
+            'description' => ['required'],
         ];
     }
 }

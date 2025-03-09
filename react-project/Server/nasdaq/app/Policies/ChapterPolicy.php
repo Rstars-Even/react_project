@@ -8,6 +8,11 @@ use Illuminate\Auth\Access\Response;
 
 class ChapterPolicy
 {
+    public function before(User $user, $ability)
+    {
+        return isAdministrator();
+    }
+
     /**
      * Determine whether the user can view any models.
      */

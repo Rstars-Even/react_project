@@ -10,6 +10,12 @@ class Lesson extends Model
     /** @use HasFactory<\Database\Factories\LessonFactory> */
     use HasFactory;
 
+    protected $fillable = [
+        'title',
+        'preview',
+        'description'
+    ];
+
     public function chapters() {
         return $this->hasMany(Chapter::class);
     }
