@@ -17,7 +17,11 @@ export default defineConfig({
       '/dq': {
         target: 'http://nasdaq.test',
         changeOrigin: true
-      }
+      },
+      '/images': {
+        target: 'http://nasdaq.test',
+        changeOrigin: true
+      },
     }
   }
 })
