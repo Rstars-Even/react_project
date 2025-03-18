@@ -1,10 +1,12 @@
 import { useAppRouter } from "@/hooks/useAppRouter"
+import { Toaster } from "sonner"
 import { useAppQuery } from "./hooks/useAppQuery"
 import { useGetUserInfoQuery } from "./services/user"
 
 function App() {
   const { AppQueryProvider } = useAppQuery()
   return <AppQueryProvider>
+    <Toaster richColors />
     <InItData />
   </AppQueryProvider>
 

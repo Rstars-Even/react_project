@@ -12,7 +12,7 @@
     "module": "ESNext",
     "skipLibCheck": true,
     /* Bundler mode */
-    "moduleResolution": "node",
+    "moduleResolution": "Node",
     "esModuleInterop": true,
     // "allowImportingTsExtensions": true,
     "isolatedModules": true,
