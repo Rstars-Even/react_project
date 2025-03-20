@@ -8,7 +8,10 @@ export const useAuth = () => {
     const user = (field: keyof IUser) => {
         return data.user[field];
     }
-    return { user }
+    const setUser = (user: IUser) => {
+        data.user = user
+    }
+    return { user, setUser }
 }
 
 export type IUserAuth = ReturnType<typeof useAuth>

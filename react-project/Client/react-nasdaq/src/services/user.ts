@@ -5,10 +5,11 @@ import { AxiosError } from "axios"
 
 export const useGetUserInfoQuery = () => {
     const { axiosInstance } = useAxios()
-    return useQuery<IUser, AxiosError>({
+    return useQuery<{ data: IUser }, AxiosError>({
         queryKey: ['useGetUserInfoQuery'],
         queryFn: async () => {
-            return await axiosInstance.get('/user/current')
+            const response = await axiosInstance.get('/user/current')
+            return response.data
         }
     })
 }
