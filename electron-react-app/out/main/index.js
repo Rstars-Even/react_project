@@ -3,17 +3,22 @@ const electron = require("electron");
 const path = require("path");
 const utils = require("@electron-toolkit/utils");
 const icon = path.join(__dirname, "../../resources/icon.png");
+electron.ipcMain.on("hideWindow", (event) => {
+  const win = electron.BrowserWindow.fromWebContents(event.sender);
+  if (win) win.hide();
+});
 function createWindow() {
+  const { width } = electron.screen.getPrimaryDisplay().workAreaSize;
   const mainWindow = new electron.BrowserWindow({
-    width: 600,
-    height: 600,
-    // x: width - 600,
-    // y: 50,
+    width: 500,
+    height: 350,
+    x: width - 500,
+    y: 0,
     show: false,
-    autoHideMenuBar: true,
     frame: false,
     transparent: true,
     alwaysOnTop: true,
+    autoHideMenuBar: true,
     ...process.platform === "linux" ? { icon } : {},
     webPreferences: {
       preload: path.join(__dirname, "../preload/index.js"),
