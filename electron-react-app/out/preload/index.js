@@ -4,6 +4,9 @@ const preload = require("@electron-toolkit/preload");
 const api = {
   hideWindow: () => {
     electron.ipcRenderer.send("hideWindow");
+  },
+  shortCut: (type, shortCut) => {
+    return electron.ipcRenderer.invoke("shortCut", type, shortCut);
   }
 };
 if (process.contextIsolated) {

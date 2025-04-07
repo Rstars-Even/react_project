@@ -1,19 +1,42 @@
 "use strict";
 const electron = require("electron");
-const path = require("path");
 const utils = require("@electron-toolkit/utils");
-const icon = path.join(__dirname, "../../resources/icon.png");
-electron.ipcMain.on("hideWindow", (event) => {
-  const win = electron.BrowserWindow.fromWebContents(event.sender);
-  if (win) win.hide();
+const path = require("path");
+const registerIpc = (win) => {
+  electron.ipcMain.on("hideWindow", () => {
+    win.hide();
+  });
+};
+const config = {
+  search: ""
+};
+const registerShortCut = (win) => {
+  electron.ipcMain.handle("shortCut", (_event, type, shortCut) => {
+    if (config.search) electron.globalShortcut.unregister(config.search);
+    config.search = shortCut;
+    switch (type) {
+      case "search":
+        return registerSearchShortCut(win, shortCut);
+    }
+  });
+};
+function registerSearchShortCut(win, shortCut) {
+  return electron.globalShortcut.register(shortCut, () => {
+    win.isVisible() ? win.hide() : win.show();
+  });
+}
+electron.app.on("will-quit", () => {
+  electron.globalShortcut.unregisterAll();
 });
+const icon = path.join(__dirname, "../../resources/icon.png");
 function createWindow() {
   const { width } = electron.screen.getPrimaryDisplay().workAreaSize;
   const mainWindow = new electron.BrowserWindow({
     width: 500,
     height: 350,
-    x: width - 500,
-    y: 0,
+    center: true,
+    // x: width - 500,
+    // y: 0,
     show: false,
     frame: false,
     transparent: true,
@@ -38,14 +61,19 @@ function createWindow() {
   } else {
     mainWindow.loadFile(path.join(__dirname, "../renderer/index.html"));
   }
+  return mainWindow;
 }
+electron.app.whenReady().then(() => {
+  const win = createWindow();
+  registerIpc(win);
+  registerShortCut(win);
+});
 electron.app.whenReady().then(() => {
   utils.electronApp.setAppUserModelId("com.electron");
   electron.app.on("browser-window-created", (_, window) => {
     utils.optimizer.watchWindowShortcuts(window);
   });
   electron.ipcMain.on("ping", () => console.log("pong"));
-  createWindow();
   electron.app.on("activate", function() {
     if (electron.BrowserWindow.getAllWindows().length === 0) createWindow();
   });
