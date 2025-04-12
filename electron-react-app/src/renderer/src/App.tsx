@@ -8,13 +8,13 @@ function App(): JSX.Element {
   const { register } = useShortCut()
   register('search', 'CommandOrControl+shift+]')
   return (
-    <>
+    <main className="relative">
       {/* <CodeProvider> */}
       <Error />
       <Search></Search>
       <Result></Result>
       {/* </CodeProvider> */}
-    </>
+    </main>
   )
 }
 
