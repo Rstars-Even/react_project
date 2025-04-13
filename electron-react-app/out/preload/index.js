@@ -7,6 +7,9 @@ const api = {
   },
   shortCut: (type, shortCut) => {
     return electron.ipcRenderer.invoke("shortCut", type, shortCut);
+  },
+  setIgnoreMouseEvents: (ignore, options) => {
+    electron.ipcRenderer.send("setIgnoreMouseEvents", ignore, options);
   }
 };
 if (process.contextIsolated) {

@@ -1,3 +1,11 @@
+body {
+    @apply w-screen h-screen;
+}
+
+* {
+    opacity: 0.995;
+}
+
 .drag {
     -webkit-app-region: drag;
 }

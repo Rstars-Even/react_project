@@ -2,6 +2,11 @@
 const electron = require("electron");
 const utils = require("@electron-toolkit/utils");
 const path = require("path");
+const ignoreMouseEvents = (win) => {
+  electron.ipcMain.on("setIgnoreMouseEvents", (_enent, ignore, options) => {
+    win.setIgnoreMouseEvents(ignore, options);
+  });
+};
 const registerIpc = (win) => {
   electron.ipcMain.on("hideWindow", () => {
     win.hide();
@@ -30,13 +35,12 @@ electron.app.on("will-quit", () => {
 });
 const icon = path.join(__dirname, "../../resources/icon.png");
 function createWindow() {
-  const { width } = electron.screen.getPrimaryDisplay().workAreaSize;
   const mainWindow = new electron.BrowserWindow({
     width: 500,
     height: 350,
     center: true,
-    x: width - 500,
-    y: 0,
+    // x: width - 500,
+    // y: 0,
     show: false,
     frame: false,
     transparent: true,
@@ -67,6 +71,7 @@ electron.app.whenReady().then(() => {
   const win = createWindow();
   registerIpc(win);
   registerShortCut(win);
+  ignoreMouseEvents(win);
 });
 electron.app.whenReady().then(() => {
   utils.electronApp.setAppUserModelId("com.electron");
