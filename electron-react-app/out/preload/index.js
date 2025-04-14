@@ -10,6 +10,9 @@ const api = {
   },
   setIgnoreMouseEvents: (ignore, options) => {
     electron.ipcRenderer.send("setIgnoreMouseEvents", ignore, options);
+  },
+  openCofigWindow: () => {
+    electron.ipcRenderer.send("openCofigWindow");
   }
 };
 if (process.contextIsolated) {

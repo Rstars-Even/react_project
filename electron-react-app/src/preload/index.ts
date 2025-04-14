@@ -11,6 +11,12 @@ const api = {
   },
   setIgnoreMouseEvents: (ignore: boolean, options?: { forward: boolean }) => {
     ipcRenderer.send('setIgnoreMouseEvents', ignore, options)
+  },
+  openCofigWindow: () => {
+    ipcRenderer.send('openCofigWindow')
+  },
+  spl: (sql: string, type: 'findAll' | 'findOne' | 'insert' | 'update' | 'del') => {
+    return ipcRenderer.invoke('sql', sql, type)
   }
 }
 

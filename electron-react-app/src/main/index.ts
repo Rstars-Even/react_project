@@ -1,6 +1,7 @@
 import { app, BrowserWindow, ipcMain } from 'electron'
 import { electronApp, optimizer } from '@electron-toolkit/utils'
 import "./code";
+import "./db";
 import { createWindow } from './code/window';
 
 // This method will be called when Electron has finished
