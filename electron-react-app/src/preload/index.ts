@@ -15,7 +15,7 @@ const api = {
   openCofigWindow: () => {
     ipcRenderer.send('openCofigWindow')
   },
-  spl: (sql: string, type: 'findAll' | 'findOne' | 'insert' | 'update' | 'del') => {
+  spl: (sql: string, type: SqlActionType) => {
     return ipcRenderer.invoke('sql', sql, type)
   }
 }

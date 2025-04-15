@@ -11,6 +11,7 @@ function Home(): JSX.Element {
     const { setIgnoreMouseEvents } = useIgnoreMouseEvents()
     useEffect(() => {
         setIgnoreMouseEvents(mainRef as MutableRefObject<HTMLDivElement>)
+        window.api.openCofigWindow()
     }, [])
 
     const { register } = useShortCut()

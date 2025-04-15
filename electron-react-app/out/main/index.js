@@ -12,11 +12,16 @@ const ignoreMouseEvents = (win2) => {
 };
 const icon = path.join(__dirname, "../../resources/icon.png");
 function createWindow$1() {
+  const { width } = electron.screen.getPrimaryDisplay().workAreaSize;
   const mainWindow = new electron.BrowserWindow({
-    width: 600,
+    width: 500,
     height: 500,
     center: true,
+    x: width - 500,
+    y: 0,
     show: false,
+    frame: false,
+    transparent: true,
     alwaysOnTop: true,
     autoHideMenuBar: true,
     ...process.platform === "linux" ? { icon } : {},
@@ -25,6 +30,7 @@ function createWindow$1() {
       sandbox: false
     }
   });
+  mainWindow.webContents.openDevTools();
   mainWindow.on("ready-to-show", () => {
     mainWindow.show();
   });
@@ -85,12 +91,13 @@ electron.app.on("will-quit", () => {
   electron.globalShortcut.unregisterAll();
 });
 function createWindow() {
+  const { width } = electron.screen.getPrimaryDisplay().workAreaSize;
   const mainWindow = new electron.BrowserWindow({
     width: 500,
     height: 350,
     center: true,
-    // x: width - 500,
-    // y: 0,
+    x: width - 500,
+    y: 0,
     show: false,
     frame: false,
     transparent: true,
@@ -102,7 +109,6 @@ function createWindow() {
       sandbox: false
     }
   });
-  mainWindow.webContents.openDevTools();
   mainWindow.on("ready-to-show", () => {
     mainWindow.show();
   });
@@ -126,6 +132,48 @@ electron.app.whenReady().then(() => {
 const file = node_path.resolve(electron.app.getPath("home"), "Desktop", "dq.db");
 const db = new Database(file, {});
 db.pragma("journal_mode = WAL");
+db.exec(`
+    create table if not exists categories (
+        id integer primary key autoincrement not null,
+        name text not null,
+        created_at text not null
+    );
+`);
+db.exec(`
+    create table if not exists contents (
+        id integer primary key autoincrement not null,
+        title text not null,
+        content text not null,
+        category_id integer,
+        created_at text not null
+    );
+`);
+const findAll = (sql) => {
+  return db.prepare(sql).all();
+};
+const findOne = (sql) => {
+  return db.prepare(sql).get();
+};
+const insert = (sql) => {
+  return db.prepare(sql).run().lastInsertRowid;
+};
+const update = (sql) => {
+  return db.prepare(sql).run().changes;
+};
+const del = (sql) => {
+  return db.prepare(sql).run().changes;
+};
+const query = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+  __proto__: null,
+  del,
+  findAll,
+  findOne,
+  insert,
+  update
+}, Symbol.toStringTag, { value: "Module" }));
+electron.ipcMain.handle("sql", (_event, sql, type) => {
+  return query[type](sql);
+});
 electron.app.whenReady().then(() => {
   utils.electronApp.setAppUserModelId("com.electron");
   electron.app.on("browser-window-created", (_, window) => {

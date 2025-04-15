@@ -4,14 +4,14 @@ import icon from '../../../resources/icon.png?asset'
 import { is } from '@electron-toolkit/utils'
 
 export function createWindow(): BrowserWindow {
-    // const { width } = screen.getPrimaryDisplay().workAreaSize
+    const { width } = screen.getPrimaryDisplay().workAreaSize
     // Create the browser window.
     const mainWindow = new BrowserWindow({
         width: 500,
         height: 350,
         center: true,
-        // x: width - 500,
-        // y: 0,
+        x: width - 500,
+        y: 0,
         show: false,
         frame: false,
         transparent: true,
@@ -23,7 +23,7 @@ export function createWindow(): BrowserWindow {
             sandbox: false
         }
     })
-    mainWindow.webContents.openDevTools()
+    // mainWindow.webContents.openDevTools()
     mainWindow.on('ready-to-show', () => {
         mainWindow.show()
     })

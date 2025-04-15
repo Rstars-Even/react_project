@@ -8,7 +8,7 @@ declare global {
       shortCut: (type: 'search', shortCut: string) => Promise<boolean>
       setIgnoreMouseEvents: (ignore: boolean, options?: { forward: boolean }) => void
       openCofigWindow: () => void
-      spl: <T>(sql: string, type: 'findAll' | 'findOne' | 'insert' | 'update' | 'del') => Promise<T>
+      spl: <T>(sql: string, type: SqlActionType) => Promise<T>
     }
   }
 }

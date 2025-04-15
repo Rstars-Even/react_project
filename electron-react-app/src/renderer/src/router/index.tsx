@@ -1,5 +1,5 @@
 import Home from "@renderer/pages/Home";
-import Cofig from "@renderer/pages/Cofig";
+import Config from "@renderer/pages/Config";
 import { createHashRouter } from "react-router-dom";
 
 const router = createHashRouter([
@@ -9,7 +9,7 @@ const router = createHashRouter([
     },
     {
         path: 'config',
-        element: <Cofig />
+        element: <Config />
     }
 ])
 export default router
