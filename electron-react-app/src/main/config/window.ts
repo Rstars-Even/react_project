@@ -8,13 +8,13 @@ export function createWindow(): BrowserWindow {
     const { width } = screen.getPrimaryDisplay().workAreaSize
     const mainWindow = new BrowserWindow({
         width: 500,
-        height: 500,
+        height: 350,
         center: true,
         x: width - 500,
         y: 0,
-        show: false,
-        frame: false,
-        transparent: true,
+        show: true,
+        frame: true,
+        transparent: false,
         alwaysOnTop: true,
         autoHideMenuBar: true,
         ...(process.platform === 'linux' ? { icon } : {}),
