@@ -5,6 +5,7 @@ const path = require("path");
 const url = require("node:url");
 const Database = require("better-sqlite3");
 const node_path = require("node:path");
+const mockjs = require("mockjs");
 const ignoreMouseEvents = (win2) => {
   electron.ipcMain.on("setIgnoreMouseEvents", (_enent, ignore, options) => {
     win2.setIgnoreMouseEvents(ignore, options);
@@ -148,6 +149,19 @@ db.exec(`
         created_at text not null
     );
 `);
+for (let i = 0; i < 10; i++) {
+  const name = mockjs.Random.title(5, 10);
+  db.exec(`
+        INSERT INTO categories (name,created_at) VALUES('${name}',datetime());
+    `);
+  for (let j = 1; j < 10; j++) {
+    const title = mockjs.Random.title(5, 10);
+    const content = mockjs.Random.paragraph(5, 10);
+    db.exec(`
+            INSERT INTO contents (title,content,category_id,created_at) VALUES('${title}','${content}','${i}',datetime());
+        `);
+  }
+}
 const findAll = (sql) => {
   return db.prepare(sql).all();
 };

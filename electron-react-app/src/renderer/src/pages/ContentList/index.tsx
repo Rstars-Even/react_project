@@ -1,5 +1,5 @@
 import './index.css'
-export default function Content() {
+export default function ContentList() {
     return (
         <main className='content-page'>
             <div className='list'>list</div>
