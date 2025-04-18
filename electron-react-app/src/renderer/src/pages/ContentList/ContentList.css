@@ -1,0 +1,38 @@
+.content-page {
+    height: 100vh;
+    font-size: 0.75rem;
+    /* text-xs */
+    color: #334155;
+    /* text-slate-700 */
+    display: grid;
+    grid-template: 'list content' auto / 250px auto;
+}
+
+.content-page .list {
+    /* background-color: #f8fafc; */
+    border-right-width: 1px;
+    grid-area: list;
+    overflow-y: auto;
+}
+
+.content-page .list a {
+    padding: 0.25rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    border-bottom: solid 1px #e5e7eb;
+    margin: 0 0.5rem;
+}
+
+.active {
+    background-color: #1d4ed8;
+    color: white;
+    margin: 0 0.25rem;
+    border-radius: 0.375rem;
+}
+
+.content-page .content {
+    grid-area: content;
+    /* Fixed typo: gird -> grid */
+}

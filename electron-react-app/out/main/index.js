@@ -5,7 +5,6 @@ const path = require("path");
 const url = require("node:url");
 const Database = require("better-sqlite3");
 const node_path = require("node:path");
-const mockjs = require("mockjs");
 const ignoreMouseEvents = (win2) => {
   electron.ipcMain.on("setIgnoreMouseEvents", (_enent, ignore, options) => {
     win2.setIgnoreMouseEvents(ignore, options);
@@ -40,7 +39,7 @@ function createWindow$1() {
     return { action: "deny" };
   });
   if (utils.is.dev && process.env["ELECTRON_RENDERER_URL"]) {
-    mainWindow.loadURL(process.env["ELECTRON_RENDERER_URL"] + "/#config");
+    mainWindow.loadURL(process.env["ELECTRON_RENDERER_URL"] + "/#config/category");
   } else {
     mainWindow.loadURL(
       url.format({
@@ -51,7 +50,7 @@ function createWindow$1() {
         //protocol 后面需要两个/
         slashes: true,
         //hash 的值
-        hash: "config"
+        hash: "config/category"
       })
     );
   }
@@ -149,19 +148,6 @@ db.exec(`
         created_at text not null
     );
 `);
-for (let i = 0; i < 10; i++) {
-  const name = mockjs.Random.title(5, 10);
-  db.exec(`
-        INSERT INTO categories (name,created_at) VALUES('${name}',datetime());
-    `);
-  for (let j = 1; j < 10; j++) {
-    const title = mockjs.Random.title(5, 10);
-    const content = mockjs.Random.paragraph(5, 10);
-    db.exec(`
-            INSERT INTO contents (title,content,category_id,created_at) VALUES('${title}','${content}','${i}',datetime());
-        `);
-  }
-}
 const findAll = (sql) => {
   return db.prepare(sql).all();
 };
