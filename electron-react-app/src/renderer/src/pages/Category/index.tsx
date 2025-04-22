@@ -5,12 +5,12 @@ import './Category.css'
 
 export default function Category() {
     const categories = useLoaderData() as CategoryType[]
-    const navigate = useNavigate()
-    useEffect(() => {
-        if (categories.length) {
-            navigate(`/config/category/contentList/${categories[0].id}`)
-        }
-    }, [categories])
+    // const navigate = useNavigate()
+    // useEffect(() => {
+    //     if (categories.length) {
+    //         navigate(`/config/category/contentList/${categories[0].id}`)
+    //     }
+    // }, [categories])
     return (
         <main className='category-page'>
             <div className='categories'>

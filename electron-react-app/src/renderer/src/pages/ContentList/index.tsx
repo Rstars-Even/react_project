@@ -5,12 +5,12 @@ import './ContentList.css'
 
 export default function ContentList() {
     const contents = useLoaderData() as ContentType[]
-    const navigate = useNavigate()
-    useEffect(() => {
-        if (contents.length) {
-            navigate(`/config/category/contentList/${contents[0].category_id}/content/${contents[0].id}`)
-        }
-    }, [contents])
+    // const navigate = useNavigate()
+    // useEffect(() => {
+    //     if (contents.length) {
+    //         navigate(`/config/category/contentList/${contents[0].category_id}/content/${contents[0].id}`)
+    //     }
+    // }, [contents])
     return (
         <main className='content-page'>
             <div className='list'>

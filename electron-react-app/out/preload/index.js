@@ -14,8 +14,8 @@ const api = {
   openCofigWindow: () => {
     electron.ipcRenderer.send("openCofigWindow");
   },
-  sql: (sql, type) => {
-    return electron.ipcRenderer.invoke("sql", sql, type);
+  sql: (sql, type, params = {}) => {
+    return electron.ipcRenderer.invoke("sql", sql, type, params);
   }
 };
 if (process.contextIsolated) {

@@ -157,8 +157,8 @@ const findOne = (sql) => {
 const insert = (sql) => {
   return db.prepare(sql).run().lastInsertRowid;
 };
-const update = (sql) => {
-  return db.prepare(sql).run().changes;
+const update = (sql, params) => {
+  return db.prepare(sql).run(params).changes;
 };
 const del = (sql) => {
   return db.prepare(sql).run().changes;
@@ -171,8 +171,8 @@ const query = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.definePropert
   insert,
   update
 }, Symbol.toStringTag, { value: "Module" }));
-electron.ipcMain.handle("sql", (_event, sql, type) => {
-  return query[type](sql);
+electron.ipcMain.handle("sql", (_event, sql, type, params = {}) => {
+  return query[type](sql, params);
 });
 electron.app.whenReady().then(() => {
   utils.electronApp.setAppUserModelId("com.electron");

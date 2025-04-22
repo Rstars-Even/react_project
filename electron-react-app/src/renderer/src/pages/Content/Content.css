@@ -1,5 +1,5 @@
 .content-main {
     height: 100vh;
     display: grid;
-    grid-template-rows: 50px 1fr 40ox;
+    grid-template-rows: 50px 1fr;
 }

@@ -8,6 +8,7 @@ import ContentListLoader from "@renderer/pages/ContentList/ContentListLoader";
 import Content from "@renderer/pages/Content";
 import ContentLoader from "@renderer/pages/Content/ContentLoader";
 import ContentAction from "@renderer/pages/Content/ContentAction";
+import Welcome from "@renderer/pages/Welcome";
 
 const router = createHashRouter([
     {
@@ -23,6 +24,10 @@ const router = createHashRouter([
                 element: <Category />,
                 loader: CategoryLoader,
                 children: [
+                    {
+                        index: true,
+                        element: <Welcome />
+                    },
                     {
                         path: 'ContentList/:cid',
                         element: <ContentList />,
