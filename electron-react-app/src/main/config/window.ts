@@ -7,7 +7,7 @@ import url from 'node:url'
 export function createWindow(): BrowserWindow {
     const { width } = screen.getPrimaryDisplay().workAreaSize
     const mainWindow = new BrowserWindow({
-        width: 500,
+        width: 650,
         height: 350,
         center: true,
         x: width - 500,
@@ -15,7 +15,7 @@ export function createWindow(): BrowserWindow {
         show: true,
         frame: true,
         transparent: false,
-        alwaysOnTop: true,
+        // alwaysOnTop: true,       //应用层级是否置顶。
         autoHideMenuBar: true,
         ...(process.platform === 'linux' ? { icon } : {}),
         webPreferences: {
@@ -36,7 +36,7 @@ export function createWindow(): BrowserWindow {
     // HMR for renderer base on electron-vite cli.
     // Load the remote URL for development or the local html file for production.
     if (is.dev && process.env['ELECTRON_RENDERER_URL']) {
-        mainWindow.loadURL(process.env['ELECTRON_RENDERER_URL'] + '/#config/category')
+        mainWindow.loadURL(process.env['ELECTRON_RENDERER_URL'] + '/#config/category/contentList')
     } else {
         mainWindow.loadURL(
             url.format({
@@ -47,7 +47,7 @@ export function createWindow(): BrowserWindow {
                 //protocol 后面需要两个/
                 slashes: true,
                 //hash 的值
-                hash: 'config/category'
+                hash: 'config/category/contentList'
             })
         )
     }

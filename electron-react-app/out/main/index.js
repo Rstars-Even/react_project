@@ -39,7 +39,7 @@ function createWindow$1() {
     return { action: "deny" };
   });
   if (utils.is.dev && process.env["ELECTRON_RENDERER_URL"]) {
-    mainWindow.loadURL(process.env["ELECTRON_RENDERER_URL"] + "/#config/category");
+    mainWindow.loadURL(process.env["ELECTRON_RENDERER_URL"] + "/#config/category/contentList");
   } else {
     mainWindow.loadURL(
       url.format({
@@ -50,7 +50,7 @@ function createWindow$1() {
         //protocol 后面需要两个/
         slashes: true,
         //hash 的值
-        hash: "config/category"
+        hash: "config/category/contentList"
       })
     );
   }
@@ -148,8 +148,8 @@ db.exec(`
         created_at text not null
     );
 `);
-const findAll = (sql) => {
-  return db.prepare(sql).all();
+const findAll = (sql, params = {}) => {
+  return db.prepare(sql).all(params);
 };
 const findOne = (sql) => {
   return db.prepare(sql).get();
