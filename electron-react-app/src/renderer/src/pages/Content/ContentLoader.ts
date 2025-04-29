@@ -1,3 +1,5 @@
 export default async ({ params }) => {
-    return window.api.sql(`select * from contents where id = ${params.id}`, 'findOne')
+    const content = window.api.sql(`select * from contents where id = ${params.id}`, 'findOne')
+    const categories = window.api.sql('select * from categories order by id desc', 'findAll')
+    return { content, categories }
 }

@@ -3,7 +3,9 @@ import { Form, useLoaderData, useSubmit } from 'react-router-dom'
 
 export default function Content() {
     const submit = useSubmit()
-    const content = useLoaderData() as ContentType
+    const { content, categories } = useLoaderData() as {
+        content: ContentType, categories: CategoryType[]
+    }
     return (
         <Form method='PUT'>
             <main className='content-main' key={content.id}>
@@ -14,6 +16,19 @@ export default function Content() {
                     onChange={(e) => { submit(e.target.form) }}
                     className='text-lg outline-none bg-slate-50 p-3'
                 />
+
+                <select
+                    name="category_id"
+                    value={content.category_id}
+                    onChange={(e) => { submit(e.target.form) }}
+                    className='outline-none bg-slate-50 w-full'
+                >
+                    <option value="0">未分类</option>
+                    {categories.map((category) => (
+                        <option value={category.id} key={category.id}>{category.name}</option>
+                    ))}
+                </select>
+
                 <textarea
                     name='content'
                     placeholder='请输入内容...'
