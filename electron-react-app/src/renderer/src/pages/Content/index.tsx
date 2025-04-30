@@ -9,6 +9,7 @@ export default function Content() {
     return (
         <Form method='PUT'>
             <main className='content-main' key={content.id}>
+                <input type="text" hidden defaultValue={content.id} name='id' />
                 <input
                     name='title'
                     autoFocus

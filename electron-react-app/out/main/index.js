@@ -14,7 +14,7 @@ const icon = path.join(__dirname, "../../resources/icon.png");
 function createWindow$1() {
   const { width } = electron.screen.getPrimaryDisplay().workAreaSize;
   const mainWindow = new electron.BrowserWindow({
-    width: 500,
+    width: 650,
     height: 350,
     center: true,
     x: width - 500,
@@ -22,7 +22,7 @@ function createWindow$1() {
     show: true,
     frame: true,
     transparent: false,
-    alwaysOnTop: true,
+    // alwaysOnTop: true,       //应用层级是否置顶。
     autoHideMenuBar: true,
     ...process.platform === "linux" ? { icon } : {},
     webPreferences: {
@@ -110,7 +110,6 @@ function createWindow() {
     }
   });
   mainWindow.on("ready-to-show", () => {
-    mainWindow.show();
   });
   mainWindow.webContents.setWindowOpenHandler((details) => {
     electron.shell.openExternal(details.url);
