@@ -1,0 +1,33 @@
+.link-contentList {
+    /* 文字截断 */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    /* 间距 */
+    padding: 6px 0.25rem;
+    /* 交互 */
+    cursor: pointer;
+    /* 布局 */
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    /* gap-1 */
+    border-bottom-width: 1px;
+    margin: 0.25rem 0.5rem;
+}
+
+/* 激活状态 */
+.active {
+    background-color: #2563eb;
+    color: white;
+    border-radius: 0.375rem;
+    border: none;
+}
+
+.link-contentList:hover {
+    background-color: #f3f4f6;
+}
+
+.active:hover {
+    background-color: #2563eb;
+}

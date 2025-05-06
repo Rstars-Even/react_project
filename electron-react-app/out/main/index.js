@@ -159,8 +159,8 @@ const insert = (sql) => {
 const update = (sql, params) => {
   return db.prepare(sql).run(params).changes;
 };
-const del = (sql) => {
-  return db.prepare(sql).run().changes;
+const del = (sql, params = {}) => {
+  return db.prepare(sql).run(params).changes;
 };
 const query = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
