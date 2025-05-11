@@ -1,4 +1,5 @@
 .link {
+    height: 30px;
     padding: 0.5rem;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -9,6 +10,7 @@
 }
 
 .active-quickNav {
+    height: 30px;
     padding: 0.5rem;
     overflow: hidden;
     text-overflow: ellipsis;

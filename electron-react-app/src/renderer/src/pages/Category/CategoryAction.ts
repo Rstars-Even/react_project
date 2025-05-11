@@ -18,6 +18,9 @@ export default async ({ request }) => {
             })
             return redirect('/config/category/contentList')
         }
+        case 'PUT': {
+            return window.api.sql(`update categories set name=@name where id=@id`, 'update', data)
+        }
     }
     return {}
 }

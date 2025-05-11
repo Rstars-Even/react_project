@@ -17,6 +17,9 @@ export const ContentItem = ({ content }: Props) => {
             className={({ isActive }) => {
                 return [isActive ? 'active' : '', 'link-contentList'].join(' ')
             }}
+            onDragStart={(e) => {
+                e.dataTransfer.setData('id', String(content.id))
+            }}
             onContextMenu={showContextMenu([
                 {
                     key: 'remove',
