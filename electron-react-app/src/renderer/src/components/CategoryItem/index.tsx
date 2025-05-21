@@ -36,7 +36,7 @@ export const CategoryItem = ({ category }: Props) => {
                 </div>
             ) : (
                 <NavLink
-                    onDoubleClick={(e) => {
+                    onDoubleClick={() => {
                         setEditCategoryId(category.id)
                     }}
                     to={`/config/category/contentList/${category.id}`}

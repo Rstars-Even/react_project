@@ -14,7 +14,7 @@ export default function Search() {
                     fill='#34495e'
                     strokeWidth={4}
                     className='cursor-pointer'
-                    onClick={() => window.api.openCofigWindow()}
+                    onClick={() => window.api.openWindow('code')}
                 />
                 <Input
                     value={search}
@@ -23,9 +23,9 @@ export default function Search() {
                     autoFocus
                 />
             </section>
-            <section className="text-center text-slate-600 text-xs mt-2">
-                {' '}
+            <section className="text-center text-slate-600 text-xs mt-2 nodrag select-none">
                 Atom Snip / Nsdaq
+                <span className="text-blue-600 cursor-pointer select-none" onClick={() => window.api.openWindow("config")}> 配置</span>
             </section>
         </div>
     )

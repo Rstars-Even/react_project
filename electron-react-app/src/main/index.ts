@@ -1,13 +1,18 @@
-import { app, BrowserWindow, ipcMain } from 'electron'
+import { app, ipcMain } from 'electron'
 import { electronApp, optimizer } from '@electron-toolkit/utils'
-import "./code";
+// import { createWindow } from './createWindow';
 import "./db";
-import { createWindow } from './code/window';
+import "./ipc";
+import "./windows";
+import "./shortCut";
+import { registerAppGlobShortcut } from './shortCut'
+
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app.whenReady().then(() => {
+  registerAppGlobShortcut()
   // Set app user model id for windows
   electronApp.setAppUserModelId('com.electron')
 
@@ -24,7 +29,7 @@ app.whenReady().then(() => {
   app.on('activate', function () {
     // On macOS it's common to re-create a window in the app when the
     // dock icon is clicked and there are no other windows open.
-    if (BrowserWindow.getAllWindows().length === 0) createWindow()
+    // if (BrowserWindow.getAllWindows().length === 0) createWindow()
   })
 })
 

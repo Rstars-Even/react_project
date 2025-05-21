@@ -1,5 +1,5 @@
-import Home from "@renderer/pages/Home";
-import Config from "@renderer/pages/Config";
+import Home from "@renderer/layouts/Home";
+import Config from "@renderer/layouts/Config";
 import Category from "@renderer/pages/Category";
 import ContentList from "@renderer/pages/ContentList";
 import CategoryLoader from "@renderer/pages/Category/CategoryLoader";
@@ -11,6 +11,9 @@ import ContentAction from "@renderer/pages/Content/ContentAction";
 import Welcome from "@renderer/pages/Welcome";
 import ContentListAction from "@renderer/pages/ContentList/ContentListAction";
 import CategoryAction from "@renderer/pages/Category/CategoryAction";
+import Setting from "@renderer/pages/Setting";
+// import SettingLoader from "@renderer/pages/Setting/SettingLoader";
+// import SettingAction from "@renderer/pages/Setting/SettingAction";
 
 const router = createHashRouter([
     {
@@ -21,6 +24,12 @@ const router = createHashRouter([
         path: 'config',
         element: <Config />,
         children: [
+            {
+                index: true,
+                element: <Setting />,
+                // loader: SettingLoader,
+                // action: SettingAction,
+            },
             {
                 path: 'Category',
                 element: <Category />,

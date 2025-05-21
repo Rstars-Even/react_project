@@ -1,4 +1,4 @@
-import { Add, DatabaseSetting } from "@icon-park/react"
+import { Add } from "@icon-park/react"
 import { useSubmit } from "react-router-dom"
 
 export const FooterMenu = () => {
@@ -9,11 +9,10 @@ export const FooterMenu = () => {
                 theme='outline'
                 size='20'
                 strokeWidth={2}
-                onClick={(e) => {
+                onClick={() => {
                     submit(null, { method: 'POST' })
                 }}
             />
-            <DatabaseSetting theme='outline' size='20' strokeWidth={2} />
         </div>
     )
 }

@@ -13,3 +13,15 @@ type ContentType = {
     content: string
     created_at: string
 }
+
+type WindowNameType = 'search' | 'config' | 'code'
+
+type ConfigType = {
+    id: number
+    content: string
+}
+
+type ConfigDataType = {
+    shortCut: string
+    databaseDirectory: string
+}

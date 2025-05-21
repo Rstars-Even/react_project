@@ -14,7 +14,7 @@ export default function Result() {
                         className={classNames("text-slate-700 truncate px-2 py-1 rounded-lg", { 'bg-orange-400 text-white': item.id === id })}
                         onClick={() => selectItem(item.id)}
                     >
-                        {item.content}
+                        {item.title}
                     </div>
                 ))
             }
